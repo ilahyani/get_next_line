@@ -6,7 +6,7 @@
 /*   By: ilahyani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 16:55:12 by ilahyani          #+#    #+#             */
-/*   Updated: 2021/12/08 05:27:09 by ilahyani         ###   ########.fr       */
+/*   Updated: 2021/12/08 19:32:03 by ilahyani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ void	delnl(char	*str)
 		str[i++] = '\0';
 }
 
-void	ft_fill(char *bytesread, char *buff)
+/*void	ft_fill(char *bytesread, char *buff)
 {
 	if (!bytesread)
 		bytesread = ft_strdup(buff);
 	else
 		bytesread = ft_strjoin(bytesread, buff);
 }
-
+*/
 char	*get_next_line(int fd)
 {
 	char		*buff;
@@ -48,21 +48,22 @@ char	*get_next_line(int fd)
 		read(fd, buff, BUFFER_SIZE);
 		if (!ft_strchr(buff, 10))
 		{
-			ft_fill(bytesread, buff);
-//			if (!bytesread)
-//					bytesread = ft_strdup(buff);
-//			else
-//					bytesread = ft_strjoin(bytesread, buff);
+//			ft_fill(bytesread, buff);
+			if (!bytesread)
+					bytesread = ft_strdup(buff);
+			else
+					bytesread = ft_strjoin(bytesread, buff);
 				continue;
 		}
-//		if (!bytesread)
-//			bytesread = ft_strdup(buff);
-//		else
-//			bytesread = ft_strjoin(bytesread, buff);
-		ft_fill(bytesread, buff);
+		if (!bytesread)
+			bytesread = ft_strdup(buff);
+		else
+			bytesread = ft_strjoin(bytesread, buff);
+//		ft_fill(bytesread, buff);
 		delnl(bytesread);
 		f = 1;
 	}
 	free(buff);
+	buff = 0;
 	return (bytesread);
 }
