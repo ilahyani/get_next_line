@@ -5,7 +5,8 @@
 int	main() {
 	int	fd;
 
-	fd = open("test.txt", O_CREAT | S_IRWXU);
-	printf("|%s|\n", get_next_line(fd));
+	fd = open("gnlTester/files/nl", O_RDWR);
+	printf("1: %s", get_next_line(fd));
+	printf("2: %s", get_next_line(fd));
 	return (0);
 }
