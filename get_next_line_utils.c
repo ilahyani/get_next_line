@@ -6,7 +6,7 @@
 /*   By: ilahyani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 12:15:08 by ilahyani          #+#    #+#             */
-/*   Updated: 2021/12/12 22:11:49 by ilahyani         ###   ########.fr       */
+/*   Updated: 2021/12/13 20:00:35 by ilahyani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,15 @@ size_t	ft_strlen(const char *str)
 char	*ft_strchr(const char *s, int c)
 {
 	size_t	i;
-	size_t	size;
 
 	i = 0;
-	size = ft_strlen(s);
-	while (i < size + 1)
+	while (s[i] && s)
 	{
 		if (s[i] == (char)c)
 			return ((char *)(s + i));
 		i++;
 	}
-	return (0);
+	return (NULL);
 }
 
 char	*ft_strdup(const char *s)
@@ -84,7 +82,7 @@ char	*ft_join(char *s1, char *s2)
 	return (str);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char *s, size_t start, size_t len)
 {
 	char	*sub;
 	size_t	i;
@@ -109,19 +107,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		i++;
 	}
 	sub[i] = '\0';
+//	printf("outside: %p\n", s);
+//	free(s);
 	return (sub);
-}
-
-void	ft_strcpy(char *dst, const char *src)
-{
-	size_t	i;
-	
-
-	i = 0;
-	while (src[i])
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
 }
