@@ -108,6 +108,7 @@ char	*ft_substr(char *s, size_t start, size_t len)
 	}
 	sub[i] = '\0';
 //	printf("outside: %p\n", s);
-//	free(s);
+	if (start)
+		free(s);
 	return (sub);
 }

@@ -44,17 +44,16 @@ void	*ft_free(char *str)
 
 char	*get_next_line(int fd)
 {
-	char		*buff;
+//	char		*buff;
+	char		buff[BUFFER_SIZE + 1];
 	char		*line;
-	char		*tmp;
-	char static	*vessel;
+//	char		*tmp;
+	static char	*vessel;
 	int			i;
 
-	if (fd == -1 || !BUFFER_SIZE)
-		return (NULL);
-	buff = (char *) malloc (BUFFER_SIZE * sizeof(char) + 1);
-	if (!buff)
-		return (NULL);
+//	buff = (char *) malloc (BUFFER_SIZE * sizeof(char) + 1);
+//	if (!buff)
+//		return (NULL);
 	i = 1;
 	while (i || !ft_strchr(vessel, 10))
 	{
@@ -63,20 +62,20 @@ char	*get_next_line(int fd)
 		{
 			if (vessel)
 				break ;
-			buff = ft_free(buff);
+//			buff = ft_free(buff);
 			return (NULL);
 		}
 		buff [i] = '\0';
 		vessel = ft_join(vessel, buff);
 		i = 0;
 	}
-	buff = ft_free(buff);
+//	buff = ft_free(buff);
 	line = ft_substr(vessel, 0, tellsize(vessel) + 1);
-	tmp = ft_substr(vessel, tellsize(vessel) + 1, ft_strlen(vessel) + 1);	
+//	tmp = ft_substr(vessel, tellsize(vessel) + 1, ft_strlen(vessel) + 1);	
 //	printf("inside:  %p\n", vessel);
-//	vessel = ft_substr(vessel, tellsize(vessel) + 1, ft_strlen(vessel) + 1);
-	vessel = ft_free(vessel);
-	vessel = tmp;
+	vessel = ft_substr(vessel, tellsize(vessel) + 1, ft_strlen(vessel) + 1);
+//	vessel = ft_free(vessel);
+//	vessel = tmp;
 	if (!ft_strlen(vessel))
 		vessel = ft_free(vessel);
 	return (line);
