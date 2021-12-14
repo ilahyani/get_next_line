@@ -6,7 +6,7 @@
 /*   By: ilahyani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 12:15:08 by ilahyani          #+#    #+#             */
-/*   Updated: 2021/12/13 20:00:35 by ilahyani         ###   ########.fr       */
+/*   Updated: 2021/12/14 11:49:12 by ilahyani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,16 +82,17 @@ char	*ft_join(char *s1, char *s2)
 	return (str);
 }
 
-char	*ft_substr(char *s, size_t start, size_t len)
+char	*ft_substr(char *s, size_t start, size_t len, int isline)
 {
 	char	*sub;
 	size_t	i;
 	size_t	lenght;
 
-	if (!s)
-		return (0);
-	if (start > ft_strlen(s))
+	if (start > ft_strlen(s) && !isline)
+	{
+		free(s);
 		return (ft_strdup(""));
+	}
 	lenght = 0;
 	if (len > ft_strlen(s) - start)
 		lenght = (ft_strlen(s) - start);
@@ -102,13 +103,9 @@ char	*ft_substr(char *s, size_t start, size_t len)
 		return (NULL);
 	i = 0;
 	while (s[i] && i < lenght)
-	{
-		sub[i] = s[start + i];
-		i++;
-	}
+		sub[i++] = s[start++];
 	sub[i] = '\0';
-//	printf("outside: %p\n", s);
-	if (start)
+	if (!isline)
 		free(s);
 	return (sub);
 }
