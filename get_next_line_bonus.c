@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilahyani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/11 20:32:03 by ilahyani          #+#    #+#             */
-/*   Updated: 2021/12/14 19:05:36 by ilahyani         ###   ########.fr       */
+/*   Created: 2021/12/14 18:23:48 by ilahyani          #+#    #+#             */
+/*   Updated: 2021/12/14 18:23:51 by ilahyani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 void	ft_strcpy(char *dst, char *src)
 {
@@ -45,26 +45,27 @@ char	*get_next_line(int fd)
 {
 	char		buff[BUFFER_SIZE + 1];
 	char		*line;
-	static char	*vessel;
+	static char	*vessel[1024];
 	int			i;
 
 	i = 1;
-	while (i || !ft_strchr(vessel, 10))
+	while (i || !ft_strchr(vessel[fd], 10))
 	{
 		i = read(fd, buff, BUFFER_SIZE);
 		if (i < 1)
 		{
-			if (vessel)
+			if (vessel[fd])
 				break ;
 			return (NULL);
 		}
 		buff [i] = '\0';
-		vessel = ft_join(vessel, buff);
+		vessel[fd] = ft_join(vessel[fd], buff);
 		i = 0;
 	}
-	line = ft_substr(vessel, 0, tellsize(vessel) + 1, 1);
-	vessel = ft_substr(vessel, tellsize(vessel) + 1, ft_strlen(vessel) + 1, 0);
-	if (!ft_strlen(vessel))
-		vessel = ft_free(vessel);
+	line = ft_substr(vessel[fd], 0, tellsize(vessel[fd]) + 1, 1);
+	vessel[fd] = ft_substr(vessel[fd], tellsize(vessel[fd]) + 1,
+			ft_strlen(vessel[fd]) + 1, 0);
+	if (!ft_strlen(vessel[fd]))
+		vessel[fd] = ft_free(vessel[fd]);
 	return (line);
 }
